@@ -19,14 +19,22 @@ This project entails an automated email assistant named "Martin Chuzzlewit," whi
 2. Google account with Gmail API enabled.
 3. Access to OpenAI's API and an API key.
 4. Create a virtual environment (optional):
+```bash
       python -m venv openai-env
+```
+Windows:
+```bash
       openai-env\Scripts\activate
+```
+MacOS or Linux:
+```bash
+      source openai-env/bin/activate
+```
 5. Installation of dependencies from the provided `requirements.txt` file.
-6. Create 'users.csv' with two columns, respectively named 'user' and 'thread_id'.
+6. Create `users.csv` with two columns, respectively named `user` and `thread_id`.
 
 
 ## Environment Setup
-- Rename `.env.example` to `.env`.
 - Provide your OpenAI API key and your Gmail credentials in `.env`.
 
 ## Installation
@@ -38,7 +46,7 @@ pip install -r requirements.txt
 
 ## Usage
 ```bash
-python email_assistant.py
+python chuzzlewit_reply.py
 ```
 
 ## Configuration
@@ -55,4 +63,4 @@ python email_assistant.py
 Adhere to usage policies of Gmail API and OpenAI services. Mindful of rate limits and operational costs.
 
 ## Disclaimer
-For demonstration purposes. Get proper consent before automating email responses.
+For demonstration purposes only.
