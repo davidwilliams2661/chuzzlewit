@@ -1,9 +1,7 @@
-CREATE OPENAI VIRTUAL ENVIRONMENT:
-python -m venv openai-env
-openai-env\Scripts\activate
+# CREATE 'users.csv' with two columns respectively named 'user' and 'thread_id'
 
-INSTALL LIBRARIES:
-pip install python-dotenv
-pip3 install simplegmail
-pip install --upgrade openai
-pip install -U pytest
+# INSTALL LIBRARIES:
+python-dotenv
+simplegmail
+openai
+pytest
