@@ -39,8 +39,8 @@ MacOS or Linux:
 
 ## Installation
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/davidwilliams2661/chuzzlewit
+cd chuzzlewit
 pip install -r requirements.txt
 ```
 
