@@ -1,6 +1,5 @@
 # THE REAL CHUZZLEWIT
-    #### Video Demo:  <URL HERE>
-    #### Description:
+    #### Video Demo:  https://youtu.be/IFZXv3s0A88
 
 ## Overview
 This project entails an automated email assistant named "Martin Chuzzlewit," which scans through unread emails, generates replies using OpenAI's language model, and sends them back to the sender. It uses Google's Gmail API for email operations and integrates with OpenAI's GPT models to generate responses.
