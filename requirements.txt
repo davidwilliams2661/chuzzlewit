@@ -1,0 +1,9 @@
+CREATE OPENAI VIRTUAL ENVIRONMENT:
+python -m venv openai-env
+openai-env\Scripts\activate
+
+INSTALL LIBRARIES:
+pip install python-dotenv
+pip3 install simplegmail
+pip install --upgrade openai
+pip install -U pytest

@@ -1,0 +1,5 @@
+.env
+users.csv
+client_secret.json
+gmail_token.json
+openai-env
