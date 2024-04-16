@@ -72,8 +72,12 @@ def main():
             }
             message = gmail.send_message(**params)
             print("Message sent!")
-            print()
-            print(f"Response: {response}")
+
+        print()
+        print(f"Response: {response}")
+        print("-----")
+        
+    print("END PROGRAM")
 
 def secret_reply(address):
     print(f"Secret found. Replying to {address}...")
