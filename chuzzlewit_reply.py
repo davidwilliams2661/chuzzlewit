@@ -68,15 +68,16 @@ def main():
                 "to": message.sender,
                 "sender": "therealchuzzlewit@gmail.com",
                 "subject": f"RE: {message.subject}",
-                "msg_html": f"<p style='font-family: Times New Roman;'>{response}</p>",
+                "msg_plain": response,
             }
             message = gmail.send_message(**params)
             print("Message sent!")
 
         print()
         print(f"Response: {response}")
+        print()
         print("-----")
-        
+
     print("END PROGRAM")
 
 def secret_reply(address):
