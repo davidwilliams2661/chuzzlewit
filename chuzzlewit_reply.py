@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from simplegmail import Gmail
 from openai import OpenAI
 
-# follow requirements.txt
+# openai-env\Scripts\activate
 
 # load environment file, initialize gmail openAI objects
 load_dotenv()

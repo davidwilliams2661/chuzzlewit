@@ -3,3 +3,5 @@ users.csv
 client_secret.json
 gmail_token.json
 openai-env
+log_chuz.log
+run_chuz.bat
