@@ -87,7 +87,7 @@ def secret_reply(address):
             "to": address,
             "sender": "therealchuzzlewit@gmail.com",
             "subject": "THE NEXT STEP",
-            "msg_html": "<h1>A JOURNEY TOWARDS IMMENSE GLORY AND RICHES BEGINS: <u>FIND IT</u></h1><br />",
+            "msg_html": "<h1>A JOURNEY TOWARDS UNIMAGINABLE GLORY BEGINS: <u>FIND IT</u></h1><br />",
             "attachments": [attachment],
         }
         message = gmail.send_message(**params)
