@@ -14,6 +14,8 @@ from openai import OpenAI
 load_dotenv()
 gmail = Gmail()
 client = OpenAI()
+secret_word = os.environ.get("SECRET_WORD")
+attachment = os.environ.get("SECRET_ATTACHMENT")
 
 # Martin Chuzzlewit assistant
 assistant_id="asst_R3rUK0pflXvkPH302NMidu10"
@@ -27,39 +29,72 @@ def main():
 
     # iterate each message
     for message in messages:
-        # message to be sent to chuzzlewit
-        email_content = f"From {message.sender}: '{message.subject}: {message.plain}'"
+        # mark as read
+        message.mark_as_read()
 
         # isolate email address
         address = extract_email_address(message.sender)
 
-        # mark as read
-        message.mark_as_read()
+        # if user reply contains the secret word send qr code email
+        if secret_word in message.plain.lower():
+            secret_sent = secret_reply(address)
+        else:
+            secret_sent = False
 
-        # find old thread or make a new one
-        thread = find_thread(address)
-        print(f"Sending reply to {address}")
+        # else reply as normal
+        if secret_sent == False:
+            # message to be sent to chuzzlewit
+            email_content = f"From {message.sender}: '{message.subject}: {message.plain}'"
 
-        # create run, which includes adding email content to messages
-        run = create_run(email_content, thread)
+            # find old thread or make a new one
+            thread = find_thread(address)
+            print(f"Sending reply to {address}")
 
-        # allow assistant to create response
-        print("Creating response...")
-        run = wait_on_run(run, thread)
+            # mark as read
+            message.mark_as_read()
 
-        # access the most recent response in the messages history of given thread
-        response = get_last_response(thread)
+            # create run, which includes adding email content to messages
+            run = create_run(email_content, thread)
 
-        # send a response email!
+            # allow assistant to create response
+            print("Creating response...")
+            run = wait_on_run(run, thread)
+
+            # access the most recent response in the messages history of given thread
+            response = get_last_response(thread)
+
+            # send a response email!
+            params = {
+                "to": message.sender,
+                "sender": "therealchuzzlewit@gmail.com",
+                "subject": f"RE: {message.subject}",
+                "msg_html": f"<p style='font-family: Times New Roman;'>{response}</p>",
+            }
+            message = gmail.send_message(**params)
+            print("Message sent!")
+            print()
+            print(f"Response: {response}")
+
+def secret_reply(address):
+    print(f"Secret found. Replying to {address}...")
+    try:
         params = {
-            "to": message.sender,
+            "to": address,
             "sender": "therealchuzzlewit@gmail.com",
-            "subject": f"RE: {message.subject}",
-            "msg_html": f"<p style='font-family: Times New Roman;'>{response}</p>",
+            "subject": "THE NEXT STEP",
+            "msg_html": "<h1>A JOURNEY TOWARDS IMMENSE GLORY AND RICHES BEGINS: <u>FIND IT</u></h1><br />",
+            "attachments": [attachment],
         }
         message = gmail.send_message(**params)
-        print("Message sent!")
-        print(f"Response: {response}")
+        if message:
+            print("Secret QR sent!")
+            return True
+        else:
+            print("No message found. Potential Error")
+            return False
+    except:
+        print("Message could not send")
+        return False
 
 
 def find_thread(user):
