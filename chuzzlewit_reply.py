@@ -38,6 +38,7 @@ def main():
         # if user reply contains the secret word send qr code email
         if secret_word in message.plain.lower():
             secret_sent = secret_reply(address)
+            response = "QR email"
         else:
             secret_sent = False
 
