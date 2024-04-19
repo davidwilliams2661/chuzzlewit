@@ -49,17 +49,18 @@ def main():
 
             # find old thread or make a new one
             thread = find_thread(address)
-            print(f"Sending reply to {address}")
+            print(f"Sending reply to {address}", end="", flush=True)
 
             # mark as read
             message.mark_as_read()
+            print(".", end="", flush=True)
 
             # create run, which includes adding email content to messages
             run = create_run(email_content, thread)
 
             # allow assistant to create response
-            print("Creating response...")
             run = wait_on_run(run, thread)
+            print()
 
             # access the most recent response in the messages history of given thread
             response = get_last_response(thread)
@@ -68,7 +69,7 @@ def main():
             params = {
                 "to": message.sender,
                 "sender": "therealchuzzlewit@gmail.com",
-                "subject": f"RE: {message.subject}",
+                "subject": f"Re: {message.subject}",
                 "msg_plain": response,
             }
             message = gmail.send_message(**params)
@@ -88,7 +89,7 @@ def secret_reply(address):
             "to": address,
             "sender": "therealchuzzlewit@gmail.com",
             "subject": "THE NEXT STEP",
-            "msg_html": "<h1>A JOURNEY TOWARDS UNIMAGINABLE GLORY BEGINS: <u>FIND IT</u></h1><br />",
+            "msg_html": "<h1>A JOURNEY TOWARDS UNIMAGINABLE GLORY BEGINS:</h1><br />",
             "attachments": [attachment],
         }
         message = gmail.send_message(**params)
@@ -153,6 +154,7 @@ def extract_email_address(s):
 
 
 def create_run(user_input, thread):
+    print(".", end="")
     run = submit_message(assistant_id, thread, user_input)
     return run
 
@@ -169,6 +171,7 @@ def submit_message(assistant_id, thread, user_message):
 
 def wait_on_run(run, thread):
     while run.status == "queued" or run.status == "in_progress":
+        print(".", end="", flush=True)
         run = client.beta.threads.runs.retrieve(
             thread_id=thread.id,
             run_id=run.id,
